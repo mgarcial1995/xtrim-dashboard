@@ -1,4 +1,4 @@
-import { useLocation, Routes, Route } from "react-router-dom";
+import { useLocation,useNavigate, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Home from "./Views/Home";
 import Login from "./Views/Login";
@@ -19,6 +19,7 @@ library.add(fab, faCircleUser, faEnvelopeOpenText, faGear, faRightFromBracket, f
   faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash)
 function App() {
   const location = useLocation();
+  const navigate = useNavigate()
 
   const [navBar, setNavbar] = useState(true);
   const [expandNav, setExpandNav] = useState(true);
