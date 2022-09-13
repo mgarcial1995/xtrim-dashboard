@@ -19,8 +19,11 @@ function Home() {
     console.log("cancel")
   }
   return (
-    <div className="w-full h-full p-8">
-      <Modal content={contentModal} btnAccept={btcAcept} btnCancel={btcCancel} accept={accept} cancel={cancel} />
+    <div className="relative w-full h-screen">
+      {/* <Modal content={contentModal} btnAccept={btcAcept} btnCancel={btcCancel} accept={accept} cancel={cancel} /> */}
+      <div className="w-full h-full p-8">
+        Home
+      </div>
     </div>
   );
 }

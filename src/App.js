@@ -11,12 +11,12 @@ import Users from "./Views/Users";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faCircleUser, faEnvelopeOpenText, faGear, faRightFromBracket, faTable, faRightLong, 
-  faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+  faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash, faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 import SideBar from "./Components/SideBar";
 
 library.add(fab, faCircleUser, faEnvelopeOpenText, faGear, faRightFromBracket, faTable, faRightLong, 
-  faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash)
+  faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash, faTrash, faPenToSquare)
 function App() {
   const location = useLocation();
   const navigate = useNavigate()

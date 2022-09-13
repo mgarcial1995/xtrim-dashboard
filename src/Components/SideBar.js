@@ -24,7 +24,7 @@ function SideBar({routes, expandNav, setExpandNav, tables, setTables, setRoutes}
                         onMouseLeave={() => setSelect(null)}
                         className={`relative flex items-center justify-start w-full py-4 text-lg font-semibold gap-x-4 px-6 hover:bg-second ${tables.isActive?'border-l-2 border-extralight bg-second':''}`}>
                             <FontAwesomeIcon className={`${expandNav?'':'text-2xl'}`} icon={tables.icon} /> {expandNav ? tables.name: ''}
-                            {select === i && !expandNav&&<div className={`absolute top-2 left-20 w-auto bg-white rounded-lg border-2 border-first text-first py-2 px-6`}> {tables.name}</div>}
+                            {select === i && !expandNav&&<div className={`absolute z-10 top-2 left-20 w-auto bg-white rounded-lg border-2 border-first text-first py-2 px-6`}> {tables.name}</div>}
                         </Link>
                     })}
                 </div>
