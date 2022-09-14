@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DataTable from 'react-data-table-component';
 import Modal from '../Components/Modal'
+import ModalForm from '../Components/ModalForm'
+import InputText from '../Components/InputText'
 function Tables() {
     const {nameTable} = useParams();
     const [table, setTable] = useState("");
     const [search, setSearch] = useState("");
     const [showModal, setShowModal] = useState(false);
+    const [showModalCreate, setShowModalCreate] = useState(false);
 
     const [contentModal, setContentModal] = useState({
       title: "",
@@ -26,13 +29,21 @@ function Tables() {
       console.log("accept")
       setShowModal(false)
     }
+    const save = () => {
+      console.log("save")
+      setShowModalCreate(false)
+    }
     const cancel = () => {
       console.log("cancel")
       setShowModal(false)
+      setShowModalCreate(false)
     }
     const editRow = (data, index) => {
       console.log("edit",data,index)
-      
+      setShowModalCreate(true)
+    }
+    const addRow = () => {
+      setShowModalCreate(true)
     }
     const deleteRow = (data, index) => {
       setContentModal({
@@ -84,7 +95,6 @@ function Tables() {
         ),
       },
     ];
-    
     const data = [
         {
             id: 1,
@@ -138,15 +148,22 @@ function Tables() {
     return (
       <div className="relative w-full h-screen">
         {showModal && <Modal content={contentModal} btnAccept={btcAcept} btnCancel={btcCancel} accept={accept} cancel={cancel} />}
+        {showModalCreate && 
+        <ModalForm title="Agregar elemento" save={save} cancel={cancel} >
+          <InputText label="Nombre" />
+          <InputText label="Apellido" />
+          <InputText label="Documento" />
+        </ModalForm>
+        }
         <div className="w-full h-full p-8">
           <h1 className="font-bold capitalize text-3xl text-first">{table} </h1>
           <div className="flex justify-between mt-8">
             <Search value={search} setSearch={setSearch} />
-            <div className="flex px-10 justify-center rounded-full text-white font-semibold gap-x-4 items-center cursor-pointer bg-gradient-to-t from-first to-second hover:bg-third">
+            <div onClick={()=>addRow()} className="flex px-10 justify-center rounded-full text-white font-semibold gap-x-4 items-center cursor-pointer bg-gradient-to-t from-first to-second hover:bg-third">
             <FontAwesomeIcon icon="fa-solid fa-plus" />Agregar</div>
             
           </div>
-          <div className="w-full h-auto mt-8">
+          <div className="w-full h-auto mt-4">
             <DataTable
                 columns={headers}
                 data={data}

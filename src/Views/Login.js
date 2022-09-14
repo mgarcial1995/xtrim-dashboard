@@ -7,7 +7,7 @@ function Login() {
     const [typeInput, setTypeInput] = useState("password")
     const [showPass, setShowPass] = useState(false)
     const loggin = () => {
-      navigate("/")
+      navigate("/table/incidents")
     }
     return (
       <div className="flex justify-center items-center w-full h-screen bg-gradient-to-b from-third via-second to-first">

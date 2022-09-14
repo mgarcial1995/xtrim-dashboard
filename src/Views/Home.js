@@ -1,4 +1,6 @@
-import Modal from '../Components/Modal'
+import ModalForm from '../Components/ModalForm'
+import InputText from '../Components/InputText'
+
 function Home() {
   let contentModal = {
     title: 'Agregar nuevo',
@@ -20,7 +22,11 @@ function Home() {
   }
   return (
     <div className="relative w-full h-screen">
-      {/* <Modal content={contentModal} btnAccept={btcAcept} btnCancel={btcCancel} accept={accept} cancel={cancel} /> */}
+      {/* <ModalForm title="Agregar elemento" accept={accept} cancel={cancel} >
+        <InputText label="Nombre" />
+        <InputText label="Apellido" />
+        <InputText label="Documento" />
+      </ModalForm> */}
       <div className="w-full h-full p-8">
         Home
       </div>
