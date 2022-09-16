@@ -131,7 +131,7 @@ function Tables() {
             id: 7,
             title: 'Ghostbusters',
             year: '1984',
-        },
+        }
     ]
     
     useEffect(() => {
@@ -146,7 +146,7 @@ function Tables() {
         }
     }, [nameTable]);
     return (
-      <div className="relative w-full h-screen">
+      <div className="relative w-full h-screen overflow-y-auto">
         {showModal && <Modal content={contentModal} btnAccept={btcAcept} btnCancel={btcCancel} accept={accept} cancel={cancel} />}
         {showModalCreate && 
         <ModalForm title="Agregar elemento" save={save} cancel={cancel} >
