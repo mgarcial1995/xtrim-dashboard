@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Button from '../Components/Button'
 function Modal({content, btnAccept, btnCancel,accept,cancel}) {
     
@@ -14,7 +13,7 @@ function Modal({content, btnAccept, btnCancel,accept,cancel}) {
                 </div>
             </div>
         </div>
-        );
+        )
     }
   
 export default Modal;
