@@ -33,10 +33,10 @@ function App() {
   const [navBar, setNavbar] = useState(true);
   const [expandNav, setExpandNav] = useState(true);
   const tables = [
-    { path: "/table/incidents", name: "Incidentes", icon: 'fa-solid fa-table', isActive: false },
-    { path: "/table/retenctions", name: "Retenciones", icon: 'fa-solid fa-table', isActive: false },
-    { path: "/table/cancels", name: "Cancelaciones", icon: 'fa-solid fa-table', isActive: false },
-    { path: "/table/asesores", name: "Asesores", icon: 'fa-solid fa-table', isActive: false },
+    { path: "/table/ventas", name: "Ventas", icon: 'fa-solid fa-table', isActive: false },
+    { path: "/table/retencio", name: "Retenciones", icon: 'fa-solid fa-table', isActive: false },
+    // { path: "/table/cancels", name: "Cancelaciones", icon: 'fa-solid fa-table', isActive: false },
+    { path: "/table/gestion", name: "Gestión", icon: 'fa-solid fa-table', isActive: false },
   ]
   const routes = [
     // { path: "/tables", name: "Tabla", icon:'fa-solid fa-table', isActive: false },
