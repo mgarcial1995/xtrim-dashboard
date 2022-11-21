@@ -14,7 +14,7 @@ module.exports = {
         hover: "#6948B6",
         color: "#FF1D76",
         textnavbar: "#A096DB",
-        graysel:"#f7f7f7"
+        graysel:"#f7f7f7",
       }
     },
   },

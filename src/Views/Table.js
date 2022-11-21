@@ -1,17 +1,119 @@
-import Search from '../Components/Search'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import DataTable from 'react-data-table-component';
 import Modal from '../Components/Modal'
 import ModalForm from '../Components/ModalForm'
 import InputText from '../Components/InputText'
+import TableFilter from '../Components/TableFilter'
+
+const headerCells = [
+  { id: "cedula", label: "Cedula", numeric: false, click: true },
+  { id: "cuenta", label: "Cuenta", numeric: false, click: true },
+  { id: "apellidos", label: "Apellido", numeric: false, click: true },
+  { id: "email", label: "Email", numeric: false, click: true },
+  { id: "accion", label: "Accion" },
+]
+const dataCells = [
+  {
+    cedula:{
+      isEdit:false,
+      value:"13453524"
+    },
+    cuenta:{
+      isEdit:false,
+      value:"mgmgarcia"
+    },
+    apellidos: {
+      isEdit:false,
+      value: "garcia"
+    },
+    email: {
+      isEdit:false,
+      value: "aa@gmail.com"
+    },
+  },
+  {
+    cedula:{
+      isEdit:false,
+      value:"5466565"
+    },
+    cuenta:{
+      isEdit:false,
+      value:"martin2"
+    },
+    apellidos: {
+      isEdit:false,
+      value: "aaaaa"
+    },
+    email: {
+      isEdit:false,
+      value: "ghghhgh@gmail.com"
+    },
+  },
+  {
+    cedula:{
+      isEdit:false,
+      value:"5466565"
+    },
+    cuenta:{
+      isEdit:false,
+      value:"martin2"
+    },
+    apellidos: {
+      isEdit:false,
+      value: "aaaaa"
+    },
+    email: {
+      isEdit:false,
+      value: "ghghhgh@gmail.com"
+    },
+  },
+  {
+    cedula:{
+      isEdit:false,
+      value:"5466565"
+    },
+    cuenta:{
+      isEdit:false,
+      value:"martin2"
+    },
+    apellidos: {
+      isEdit:false,
+      value: "aaaaa"
+    },
+    email: {
+      isEdit:false,
+      value: "ghghhgh@gmail.com"
+    },
+  },
+  {
+    cedula:{
+      isEdit:false,
+      value:"5466565"
+    },
+    cuenta:{
+      isEdit:false,
+      value:"martin2"
+    },
+    apellidos: {
+      isEdit:false,
+      value: "aaaaa"
+    },
+    email: {
+      isEdit:false,
+      value: "ghghhgh@gmail.com"
+    },
+  },
+]
 function Tables() {
   const { nameTable } = useParams();
   const [table, setTable] = useState("");
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showModalCreate, setShowModalCreate] = useState(false);
+
+  const [headers, setHeaders] = useState(headerCells);
+  const [dataTable, setDataTable] = useState(dataCells);
 
   const [contentModal, setContentModal] = useState({
     title: "",
@@ -39,101 +141,17 @@ function Tables() {
     setShowModal(false)
     setShowModalCreate(false)
   }
-  const editRow = (data, index) => {
-    console.log("edit", data, index)
-    setShowModalCreate(true)
-  }
-  const addRow = () => {
-    setShowModalCreate(true)
-  }
   const deleteRow = (data, index) => {
-    setContentModal({
-      title: "Eliminar elemento",
-      text: "Se eliminará permanentemente este dato, ¿esta seguro?"
-    })
-    setShowModal(true)
-    console.log("borrar", data, index)
+    // setContentModal({
+    //   title: "Eliminar elemento",
+    //   text: "Se eliminará permanentemente este dato, ¿esta seguro?"
+    // })
+    // setShowModal(true)
+    let newdata = [...dataTable];
+    newdata.splice(index, 1);
+    console.log("borrar",newdata)
+    setDataTable(newdata);
   }
-  const headers = [
-    {
-      name: 'Cedula',
-      selector: row => row.title,
-      sortable: true,
-    },
-    {
-      name: 'Cuenta',
-      selector: row => row.year,
-      sortable: true,
-    },
-    {
-      name: 'Contrato',
-      selector: row => row.title,
-      sortable: true,
-    },
-    {
-      name: 'Servicio',
-      selector: row => row.year,
-      sortable: true,
-    },
-    {
-      name: 'Apellido',
-      selector: row => row.title,
-      sortable: true,
-    },
-    {
-      name: 'Email',
-      selector: row => row.year,
-      sortable: true,
-    },
-    {
-      name: 'Acciones',
-      button: true,
-      cell: (data, i) => (
-        <div className="flex justify-start items-center gap-x-2">
-          <FontAwesomeIcon className="cursor-pointer text-red-600 p-2" onClick={() => deleteRow(data, i)} icon="fa-solid fa-trash" />
-          <FontAwesomeIcon className="cursor-pointer text-blue-600 p-2" onClick={() => editRow(data, i)} icon="fa-solid fa-pen-to-square" />
-        </div>
-      ),
-    },
-  ];
-  const data = [
-    {
-      id: 1,
-      title: 'Beetlejuice',
-      year: '1988',
-      actions: "a"
-    },
-    {
-      id: 2,
-      title: 'Ghostbusters',
-      year: '1984',
-    },
-    {
-      id: 3,
-      title: 'Beetlejuice',
-      year: '1988',
-    },
-    {
-      id: 4,
-      title: 'Ghostbusters',
-      year: '1984',
-    },
-    {
-      id: 5,
-      title: 'Beetlejuice',
-      year: '1988',
-    },
-    {
-      id: 6,
-      title: 'Ghostbusters',
-      year: '1984',
-    },
-    {
-      id: 7,
-      title: 'Ghostbusters',
-      year: '1984',
-    }
-  ]
 
   useEffect(() => {
     if (nameTable === 'incidents') {
@@ -146,6 +164,21 @@ function Tables() {
       setTable('Cancelaciones')
     }
   }, [nameTable]);
+
+  const changeItemTable = (index, e) => {
+    console.log(e.target.name, e.target.value)
+    let data = [...dataTable]
+    data[index][e.target.name].value = e.target.value
+    console.log("data",data)
+    setDataTable(data)
+  }
+  const changeItemEdit = (index, item, value) => {
+    console.log(index, item, value)
+    let data = [...dataTable]
+    data[index][item].isEdit = value
+    console.log("data",data)
+    setDataTable(data)
+  }
   return (
     <div className="relative w-full h-screen overflow-y-auto">
       {showModal && <Modal content={contentModal} btnAccept={btcAcept} btnCancel={btcCancel} accept={accept} cancel={cancel} />}
@@ -156,22 +189,19 @@ function Tables() {
           <InputText label="Documento" />
         </ModalForm>
       }
-      <div className="w-full h-full p-8">
-        <h1 className="font-bold capitalize text-3xl text-first">{table} </h1>
-        <div className="flex justify-between mt-8">
-          <Search value={search} setSearch={setSearch} />
-          <div onClick={() => addRow()} className="flex px-10 justify-center rounded-full text-white font-semibold gap-x-4 items-center cursor-pointer bg-gradient-to-t from-first to-second hover:bg-third">
-            <FontAwesomeIcon icon="fa-solid fa-plus" />Agregar</div>
 
-        </div>
-        <div className="w-full h-auto mt-4">
-          <DataTable
-            columns={headers}
-            data={data}
-            actions
-            pagination
-          />
-        </div>
+      <div className="w-full h-full p-8">
+        <TableFilter
+          headerTitle={headers}
+          data={dataTable}
+          rowFila={10}
+          title={nameTable}
+          valueFinder={search}
+          setSearchFinder={setSearch}
+          changeItemTable={(index, e) => changeItemTable(index, e)}
+          changeItemEdit={(index, item, value) => changeItemEdit(index, item, value)}
+          deleteRow={(item, index) => deleteRow(item, index)}
+        />
       </div>
     </div>
   );
