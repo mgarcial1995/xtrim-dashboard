@@ -39,6 +39,7 @@ function App() {
     { path: "/table/retencio", name: "Retenciones", icon: 'fa-solid fa-table', isActive: false },
     // { path: "/table/cancels", name: "Cancelaciones", icon: 'fa-solid fa-table', isActive: false },
     { path: "/table/gestion", name: "Gestión", icon: 'fa-solid fa-table', isActive: false },
+    { path: "/table/contabilidad", name: "Contabilidad", icon: 'fa-solid fa-table', isActive: false },
   ]
   const routes = [
     // { path: "/tables", name: "Tabla", icon:'fa-solid fa-table', isActive: false },

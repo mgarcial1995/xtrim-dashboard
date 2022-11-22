@@ -55,8 +55,15 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
                     </div>
                 </div>
             </div>
-            <div onClick={() => logout()} className={`flex items-center justify-start w-full py-4 text-lg font-semibold gap-x-4 px-6 hover:bg-hover cursor-pointer text-white`}>
-                <FontAwesomeIcon className={`${expandNav ? '' : 'text-2xl'}`} icon="fa-solid fa-right-from-bracket" /> {expandNav ? 'Desconectar' : ''}
+            <div className='w-full' >
+                <div onClick={() => logout()} className={`flex items-center justify-start w-full py-4 text-lg font-semibold gap-x-4 px-6 hover:bg-hover cursor-pointer text-white`}>
+                    <FontAwesomeIcon className={`${expandNav ? '' : 'text-2xl'}`} icon="fa-solid fa-right-from-bracket" /> {expandNav ? 'Desconectar' : ''}
+                </div>
+                <a href='https://xfiv.chat/' target="_blank"
+                className='text-white text-sm font-medium flex justify-center my-4 gap-x-6' rel="noreferrer">
+                    <img className='rounded-full w-4 h-auto' src='https://cloud.xfiv.chat/brand-assets/logo_thumbnail.png' />
+                    <p>Desarrollado por Xfiv</p>
+                </a>
             </div>
         </div>
     );

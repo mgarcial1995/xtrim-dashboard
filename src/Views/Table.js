@@ -5,23 +5,34 @@ import Modal from '../Components/Modal'
 import ModalForm from '../Components/ModalForm'
 import InputText from '../Components/InputText'
 import TableFilter from '../Components/TableFilter'
-
+// ESTADOS: 
+// ACTIVO, 
+// GESTIONADO: YA TRABAJADO, 
+// DESACTIVADO: NO SE PUEDE TRABAJAR
+// SI ES DESACTIVADO YA NO SE PUEDE EDITAR
 const headerCells = [
+  { id: "order", label: "N°", numeric: false, click: true },
   { id: "cedula", label: "Cedula", numeric: false, click: true },
   { id: "cuenta", label: "Cuenta", numeric: false, click: true },
   { id: "apellidos", label: "Apellido", numeric: false, click: true },
   { id: "email", label: "Email", numeric: false, click: true },
-  { id: "accion", label: "Accion" },
+  { id: "comentario", label: "Comentarios", numeric: false, click: true },
+  { id: "estado", label: "Estado", numeric: false, click: true },
+  // { id: "accion", label: "Accion" },
 ]
 const dataCells = [
   {
+    order:{
+      isEdit:false,
+      value: 0
+    },
     cedula:{
       isEdit:false,
       value:"13453524"
     },
     cuenta:{
       isEdit:false,
-      value:"mgmgarcia"
+      value:"aaaaa"
     },
     apellidos: {
       isEdit:false,
@@ -31,77 +42,133 @@ const dataCells = [
       isEdit:false,
       value: "aa@gmail.com"
     },
-  },
-  {
-    cedula:{
+    comentario: {
       isEdit:false,
-      value:"5466565"
+      value: "aa@gmail.com"
     },
-    cuenta:{
+    estado: {
       isEdit:false,
-      value:"martin2"
-    },
-    apellidos: {
-      isEdit:false,
-      value: "aaaaa"
-    },
-    email: {
-      isEdit:false,
-      value: "ghghhgh@gmail.com"
+      value: "pendiente"
     },
   },
   {
+    order:{
+      isEdit:false,
+      value: 0
+    },
     cedula:{
       isEdit:false,
-      value:"5466565"
+      value:"13453524"
     },
     cuenta:{
       isEdit:false,
-      value:"martin2"
+      value:"aaaaa"
     },
     apellidos: {
       isEdit:false,
-      value: "aaaaa"
+      value: "garcia"
     },
     email: {
       isEdit:false,
-      value: "ghghhgh@gmail.com"
+      value: "aa@gmail.com"
+    },
+    comentario: {
+      isEdit:false,
+      value: "aa@gmail.com"
+    },
+    estado: {
+      isEdit:false,
+      value: "pendiente"
     },
   },
   {
+    order:{
+      isEdit:false,
+      value: 0
+    },
     cedula:{
       isEdit:false,
-      value:"5466565"
+      value:"13453524"
     },
     cuenta:{
       isEdit:false,
-      value:"martin2"
+      value:"aaaaa"
     },
     apellidos: {
       isEdit:false,
-      value: "aaaaa"
+      value: "garcia"
     },
     email: {
       isEdit:false,
-      value: "ghghhgh@gmail.com"
+      value: "aa@gmail.com"
+    },
+    comentario: {
+      isEdit:false,
+      value: "aa@gmail.com"
+    },
+    estado: {
+      isEdit:false,
+      value: "pendiente"
     },
   },
   {
+    order:{
+      isEdit:false,
+      value: 0
+    },
     cedula:{
       isEdit:false,
-      value:"5466565"
+      value:"13453524"
     },
     cuenta:{
       isEdit:false,
-      value:"martin2"
+      value:"aaaaa"
     },
     apellidos: {
       isEdit:false,
-      value: "aaaaa"
+      value: "garcia"
     },
     email: {
       isEdit:false,
-      value: "ghghhgh@gmail.com"
+      value: "aa@gmail.com"
+    },
+    comentario: {
+      isEdit:false,
+      value: "aa@gmail.com"
+    },
+    estado: {
+      isEdit:false,
+      value: "pendiente"
+    },
+  },
+  {
+    order:{
+      isEdit:false,
+      value: 0
+    },
+    cedula:{
+      isEdit:false,
+      value:"13453524"
+    },
+    cuenta:{
+      isEdit:false,
+      value:"aaaaa"
+    },
+    apellidos: {
+      isEdit:false,
+      value: "garcia"
+    },
+    email: {
+      isEdit:false,
+      value: "aa@gmail.com"
+    },
+    comentario: {
+      isEdit:false,
+      value: "aa@gmail.com"
+    },
+    estado: {
+      isEdit:false,
+      value: "pendiente"
     },
   },
 ]

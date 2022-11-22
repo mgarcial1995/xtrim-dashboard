@@ -15,7 +15,7 @@ function TableFilter(props) {
         const filtered = data.filter(function (element) {
             var cumple = false;
             for (var key in element) {
-                if (element[key] && element[key].toString().toLowerCase().indexOf(search) > -1) {
+                if (element[key] && element[key].value.toString().toLowerCase().indexOf(search) > -1) {
                     cumple = true;
                     break;
                 }
@@ -45,6 +45,28 @@ function TableFilter(props) {
     }
     const onChangeRowFile = (optionValue) => {
         setRowh(optionValue)
+    }
+    const selectState = (index, item, value, event) => {
+        console.log(event.target.value);
+    }
+    const inputTypeValue = (item, value, name, index, extra) => {
+        switch (item) {
+            case 'estado':
+                return <select onChange={(e)=>changeItemTable(index, e)} value={value} name={name} 
+                className="py-1 px-2 border border-grey-400 rounded-sm outline-none">
+                    <option value="pendiente">Pendiente</option>
+                    <option value="gestionado">Gestionado</option>
+                    <option value="rechazado">Rechazado</option>
+                </select>
+                break;
+            default:
+                return <input type="text" onChange={(e)=>changeItemTable(index, e)} 
+                    className="border-grey-400 border rounded-sm outline-none px-1" 
+                    name={name} 
+                    value={value} 
+                />
+                break;
+        }
     }
     return (
         <div className="w-full">
@@ -79,23 +101,20 @@ function TableFilter(props) {
                                     }}  className={`w-full grid grid-flow-col py-2`} key={indexItem}>
                                         {
                                             headerTitle.map((hear, indexheader) => (
-                                                hear.id === "accion"
-                                                    ? 
-                                                    <div key={indexheader} onClick={()=>deleteRow(items, indexItem)} className="w-[2rem]" >
-                                                        {/* BORRAR FILA */}
-                                                        <FontAwesomeIcon className="cursor-pointer text-red-600 p-2" icon="fa-solid fa-trash" />
-                                                    </div>
-                                                    : <div key={indexheader} className="flex items-center text-sm w-[10rem]">
-                                                        {
-                                                            items[hear.id].isEdit ? 
-                                                                <input type="text" onChange={(e)=>changeItemTable(indexItem, e)} 
-                                                                    className="border-grey-400 border rounded-sm outline-none px-1" 
-                                                                    name={hear.id} 
-                                                                    value={items[hear.id].value} 
-                                                                />
-                                                            :
-                                                                <p>{items[hear.id].value}</p>
-                                                        }
+                                                <div key={indexheader} className="flex items-center text-sm w-[10rem]">
+                                                            {/* <input type="text" onChange={(e)=>changeItemTable(indexItem, e)} 
+                                                                className="border-grey-400 border rounded-sm outline-none px-1" 
+                                                                name={hear.id} 
+                                                                value={items[hear.id].value} 
+                                                            /> */}
+                                                    {
+                                                        items[hear.id].isEdit ?
+                                                            inputTypeValue(hear.id, items[hear.id].value, hear.id, indexItem, '')
+                                                        :
+                                                            <p>{hear.id === 'order' ? indexItem + 1 : items[hear.id].value}</p>
+                                                    }
+                                                    {
+                                                        hear.id !== 'order' ?
                                                         <div >
                                                             {
                                                                 !items[hear.id].isEdit ?
@@ -115,8 +134,9 @@ function TableFilter(props) {
                                                                     </div>
                                                                 </div>
                                                             }
-                                                        </div>
-                                                    </div>
+                                                        </div>:''
+                                                    }
+                                                </div>
                                             ))
                                         }
                                     </div>
