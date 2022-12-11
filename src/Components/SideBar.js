@@ -14,21 +14,6 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
     const { logout } = useAuth()
     
-    useEffect(() => {
-        
-    }, []);
-    
-    const upData = () => {
-        const data = {
-            profile: 'administrador',
-            // profile: 'ventas',
-            // profile: 'retencion',
-            // profile: 'gestion',
-            name: 'Juan Perez',
-            email: 'aaa@gmail.com',
-        }
-        localStorage.setItem('user', JSON.stringify(data))
-    }
     return (
         <div
             style={{
@@ -38,7 +23,7 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
             }}
             className={`${expandNav ? 'w-80' : 'auto'} max-w-xs bg-first h-screen flex flex-col justify-between transition-transform bg-gradient-to-t from-third to-first`}>
             <div>
-                <Link onClick={()=>upData()} to="/" className="my-6 flex justify-center">
+                <Link to="/" className="my-6 flex justify-center">
                     <img src={expandNav ? logo : xlogo} atl="Logo Xtrim" />
                 </Link>
                 <div>

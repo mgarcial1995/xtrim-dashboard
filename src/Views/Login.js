@@ -1,16 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { url_base } from '../function/util/global'
 import { SpinnerCircular, SpinnerDotted } from 'spinners-react'
+import { UserContext } from '../context/UserContext'
 
 import useAuth from "../hook/useAuth";
 import axios from 'axios';
 
 
 function Login() {
-
+  
   const navigate = useNavigate()
+  const {authUser, setAthUser} = useContext(UserContext)
   const [typeInput, setTypeInput] = useState("password")
   const [showPass, setShowPass] = useState(false)
   // const loggin = () => {
@@ -46,7 +48,14 @@ function Login() {
         // });
         if (true) {
           setcolor(true)
-          login('asdasasasdsd')
+          login({
+            "nombre":"DarioMarret",
+            "email":"dario@hotmail.com",
+            "usuario":"DarioJ",
+            "password":"123",
+            "perfil":"gestion",
+            "estado":"ACTIVO"
+          })
           setLoading(false);
         } else {
           setcolor(false)

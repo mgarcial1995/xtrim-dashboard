@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { UserContext } from '../context/UserContext';
 import Modal from '../Components/Modal'
 import ModalAlert from '../Components/ModalAlert'
 import ModalForm from '../Components/ModalForm'
@@ -10,15 +11,6 @@ import TableFilter from '../Components/TableFilter'
 import axios from 'axios';
 
 // SI ES DESACTIVADO YA NO SE PUEDE EDITAR
-const gestion = [
-  { id: "cedula", label: "Cedula" },
-  { id: "cuenta", label: "Cuenta" },
-  { id: "apellidos", label: "Apellido" },
-  { id: "email", label: "Email" },
-  { id: "solicitud", label: "Solicitud" },
-  { id: "confirmacion", label: "Confirmacion" },
-  { id: "comentarios", label: "Comentarios" },
-]
 const headerCells = [
   { id: "order", label: "N°", numeric: false, click: true },
   { id: "cedula", label: "Cedula", numeric: false, click: true },
@@ -62,6 +54,7 @@ const dataCells = [
   },
 ]
 function Tables() {
+  const { authUser, setAthUser } = useContext(UserContext);
   const { nameTable } = useParams();
   const [loaderTable, setLoaderTable] = useState(true);
   const [search, setSearch] = useState("");
@@ -119,7 +112,6 @@ function Tables() {
     // setShowModal(true)
     let newdata = [...dataTable];
     newdata.splice(index, 1);
-    console.log("borrar",newdata)
     setDataTable(newdata);
   }
 
