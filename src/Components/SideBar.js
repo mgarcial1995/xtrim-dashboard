@@ -2,7 +2,7 @@
 import logo from '../Assests/logocolor.png'
 import xlogo from '../Assests/xlogo.png'
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import useAuth from "../hook/useAuth";
@@ -11,9 +11,24 @@ import useAuth from "../hook/useAuth";
 function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes }) {
     const navigate = useNavigate()
     const [select, setSelect] = useState(null)
-
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
     const { logout } = useAuth()
-
+    
+    useEffect(() => {
+        
+    }, []);
+    
+    const upData = () => {
+        const data = {
+            profile: 'administrador',
+            // profile: 'ventas',
+            // profile: 'retencion',
+            // profile: 'gestion',
+            name: 'Juan Perez',
+            email: 'aaa@gmail.com',
+        }
+        localStorage.setItem('user', JSON.stringify(data))
+    }
     return (
         <div
             style={{
@@ -23,7 +38,7 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
             }}
             className={`${expandNav ? 'w-80' : 'auto'} max-w-xs bg-first h-screen flex flex-col justify-between transition-transform bg-gradient-to-t from-third to-first`}>
             <div>
-                <Link to="/" className="my-6 flex justify-center">
+                <Link onClick={()=>upData()} to="/" className="my-6 flex justify-center">
                     <img src={expandNav ? logo : xlogo} atl="Logo Xtrim" />
                 </Link>
                 <div>
@@ -60,9 +75,16 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
                     <FontAwesomeIcon className={`${expandNav ? '' : 'text-2xl'}`} icon="fa-solid fa-right-from-bracket" /> {expandNav ? 'Desconectar' : ''}
                 </div>
                 <a href='https://xfiv.chat/' target="_blank"
-                className='text-white text-sm font-medium flex justify-center my-4 gap-x-6' rel="noreferrer">
-                    <img className='rounded-full w-4 h-auto' src='https://cloud.xfiv.chat/brand-assets/logo_thumbnail.png' />
-                    <p>Desarrollado por Xfiv</p>
+                className='text-white text-sm font-medium flex justify-center items-center my-4 gap-x-2' rel="noreferrer">
+                    {
+                        expandNav ? 
+                        <>
+                            <img className='rounded-full w-4 h-4' src='https://cloud.xfiv.chat/brand-assets/logo_thumbnail.png' />
+                            <p>Desarrollado por Xfiv</p>
+                        </>
+                        :
+                            <img className='rounded-full w-6 h-6' src='https://cloud.xfiv.chat/brand-assets/logo_thumbnail.png' />
+                    }
                 </a>
             </div>
         </div>

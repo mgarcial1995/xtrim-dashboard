@@ -35,17 +35,16 @@ function App() {
   const [navBar, setNavbar] = useState(true);
   const [expandNav, setExpandNav] = useState(true);
   const tables = [
-    { path: "/table/ventas", name: "Ventas", icon: 'fa-solid fa-table', isActive: false },
-    { path: "/table/retencio", name: "Retenciones", icon: 'fa-solid fa-table', isActive: false },
-    // { path: "/table/cancels", name: "Cancelaciones", icon: 'fa-solid fa-table', isActive: false },
     { path: "/table/gestion", name: "Gestión", icon: 'fa-solid fa-table', isActive: false },
-    { path: "/table/contabilidad", name: "Contabilidad", icon: 'fa-solid fa-table', isActive: false },
+    { path: "/table/retencion", name: "Retención", icon: 'fa-solid fa-table', isActive: false },
+    { path: "/table/ventas", name: "Ventas", icon: 'fa-solid fa-table', isActive: false },
   ]
   const routes = [
     // { path: "/tables", name: "Tabla", icon:'fa-solid fa-table', isActive: false },
     { path: "/users", name: "Usuarios", icon: 'fa-solid fa-circle-user', isActive: false },
     { path: "/email", name: "Enviar correos", icon: 'fa-solid fa-envelope-open-text', isActive: false },
-    { path: "/settings", name: "Configuración", icon: 'fa-solid fa-gear', isActive: false },
+    // { path: "/email", name: "Edificios", icon: 'fa-solid fa-envelope-open-text', isActive: false },
+    // { path: "/settings", name: "Configuración", icon: 'fa-solid fa-gear', isActive: false },
     // { path: "Logout", name: "Desconectar" },
   ];
 

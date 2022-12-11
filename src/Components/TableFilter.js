@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Search from './Search'
 
 function TableFilter(props) {
-    const { data, headerTitle, title, rowFila, changeItemTable, changeItemEdit, deleteRow } = props;
+    const { data, headerTitle, title, rowFila, changeItemTable, changeItemEdit, deleteRow, openModalConfirm } = props;
     const LongData = data.length
     const [rowh, setRowh] = useState(10)
     const [currentPage, setcurrentPage] = useState(0);
@@ -12,10 +12,10 @@ function TableFilter(props) {
 
     const RowFile = () => {
         if (search.length === 0) return data.slice(currentPage, rowFila ? currentPage + rowFila : currentPage + 5)
-        const filtered = data.filter(function (element) {
+        const filtered = data.filter((element) => {
             var cumple = false;
             for (var key in element) {
-                if (element[key] && element[key].value.toString().toLowerCase().indexOf(search) > -1) {
+                if (element[key] && element[key].toString().toLowerCase().indexOf(search) > -1) {
                     cumple = true;
                     break;
                 }
@@ -49,19 +49,31 @@ function TableFilter(props) {
     const selectState = (index, item, value, event) => {
         console.log(event.target.value);
     }
+    const gridHeader = () => {
+        let grid = []
+        for (let i = 0; i < headerTitle.length; i++) {
+            const element = headerTitle[i];
+            if(element.label === "email"){
+                grid.push("1.5fr")
+            }else{
+                grid.push("1fr")
+            }
+        }
+        return String(grid.join(" "))
+    }
     const inputTypeValue = (item, value, name, index, extra) => {
         switch (item) {
-            case 'estado':
+            case 'confirmacion':
                 return <select onChange={(e)=>changeItemTable(index, e)} value={value} name={name} 
                 className="py-1 px-2 border border-grey-400 rounded-sm outline-none">
-                    <option value="pendiente">Pendiente</option>
-                    <option value="gestionado">Gestionado</option>
-                    <option value="rechazado">Rechazado</option>
+                    <option value="0"></option>
+                    <option value="OK"> OK</option> 
+                    <option value="ERROR">ERROR</option>
                 </select>
                 break;
             default:
                 return <input type="text" onChange={(e)=>changeItemTable(index, e)} 
-                    className="border-grey-400 border rounded-sm outline-none px-1" 
+                    className="border-grey-400 border rounded-sm outline-none px-1 w-20" 
                     name={name} 
                     value={value} 
                 />
@@ -84,7 +96,7 @@ function TableFilter(props) {
                     {
                         headerTitle ?
                             headerTitle.map((items, index) => (
-                                <div key={index} className={`font-semibold text-lg py-4 text-sm ${items.id === 'accion' ?' w-[2rem]': 'w-[10rem]'}`} >
+                                <div key={index} className={`font-semibold capitalize text-lg py-4 text-sm ${items.id === 'accion' ?' w-[2rem]': 'w-[10rem]'}`} >
                                         {items.label}
                                 </div>
                             )) : ''
@@ -95,47 +107,40 @@ function TableFilter(props) {
                     {
                         data ?
                             RowFile().map((items, indexItem) => (
-                                <div className="w-full">
+                                <div key={indexItem} className="w-full">
                                     <div style={{
-                                        gridTemplateColumns: `repeat(${headerTitle.length}, auto)`,
-                                    }}  className={`w-full grid grid-flow-col py-2`} key={indexItem}>
+                                        gridTemplateColumns: gridHeader(),
+                                    }}  className={`w-full grid py-2 `} key={indexItem}>
                                         {
                                             headerTitle.map((hear, indexheader) => (
                                                 <div key={indexheader} className="flex items-center text-sm w-[10rem]">
-                                                            {/* <input type="text" onChange={(e)=>changeItemTable(indexItem, e)} 
-                                                                className="border-grey-400 border rounded-sm outline-none px-1" 
-                                                                name={hear.id} 
-                                                                value={items[hear.id].value} 
-                                                            /> */}
                                                     {
-                                                        items[hear.id].isEdit ?
-                                                            inputTypeValue(hear.id, items[hear.id].value, hear.id, indexItem, '')
+                                                        hear.id === "confirmacion" ?
+                                                            <div onClick={()=>openModalConfirm(items, indexItem)} className='bg-gradient-to-l from-first to-[#4A3CDB] text-white font-semibold px-4 py-1 rounded-full cursor-pointer'
+                                                            >Confirmar</div> 
                                                         :
-                                                            <p>{hear.id === 'order' ? indexItem + 1 : items[hear.id].value}</p>
+                                                            <p className='word-brake'>{items[hear.id]}</p>
                                                     }
-                                                    {
-                                                        hear.id !== 'order' ?
+                                                    {/* {
+                                                        hear.id === "confirmacion" || hear.id === "observacion" ?
                                                         <div >
                                                             {
                                                                 !items[hear.id].isEdit ?
                                                                 <div onClick={()=>changeItemEdit(indexItem,hear.id, !items[hear.id].isEdit)}>
-                                                                    {/* EDITAR */}
                                                                     <FontAwesomeIcon className="cursor-pointer text-blue-600 p-2" icon="fa-solid fa-pen-to-square" />
                                                                 </div>
                                                                 :
                                                                 <div className='flex gap-x-1'>
-                                                                    {/* ACEPTAR EDICION */}
                                                                     <div onClick={()=>changeItemEdit(indexItem,hear.id, !items[hear.id].isEdit)}>
                                                                         <FontAwesomeIcon className="cursor-pointer text-green-600 p-2" icon="fa-solid fa-check" />
                                                                     </div>
-                                                                    {/* CANCELAR EDICION */}
                                                                     <div onClick={()=>changeItemEdit(indexItem,hear.id, !items[hear.id].isEdit)}>
                                                                         <FontAwesomeIcon className="cursor-pointer text-red-600 p-2" icon="fa-solid fa-xmark" />
                                                                     </div>
                                                                 </div>
                                                             }
                                                         </div>:''
-                                                    }
+                                                    } */}
                                                 </div>
                                             ))
                                         }
@@ -166,14 +171,18 @@ function TableFilter(props) {
                         borderWidth: 0,
                         outlineWidth: 'none'
                     }}
-                    onClick={prevPage}> <FontAwesomeIcon icon="fa-solid fa-caret-left" /> </button>
+                    onClick={prevPage}> 
+                    {/* <FontAwesomeIcon icon="fa-solid fa-caret-left" />  */}
+                    </button>
                 &nbsp;
                 <button className="btn"
                     style={{
                         borderWidth: 0,
                         outlineWidth: 'none'
                     }}
-                    onClick={nextPage}> <FontAwesomeIcon icon="fa-solid fa-caret-right" /> </button>
+                    onClick={nextPage}> 
+                    {/* <FontAwesomeIcon icon="fa-solid fa-caret-right" />  */}
+                    </button>
             </div>
         </div>
     );
