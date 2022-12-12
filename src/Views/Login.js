@@ -39,36 +39,38 @@ function Login() {
   const logup = async () => {
     if (user.username !== '' && user.password !== '') {
       setLoading(true);
-      try {
-        // const { data } = await axios.post(`${url_base}login`, user, {
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     'Authorization': `Basic YWRtaW46YWRtaW4=`
-        //   }
-        // });
-        if (true) {
+      const config = {
+        method: 'post',
+        url: `https://incoming.xfiv.chat/dashboard/api/v1/login`,
+        data: {
+          usuario: user.username,
+          password: user.password
+        }
+      };
+      await axios(config)
+      .then(function (response) {
+        console.log(response.data)
+        const user = response.data.data
+        if (response.data.success) {
           setcolor(true)
-          login({
-            "nombre":"DarioMarret",
-            "email":"dario@hotmail.com",
-            "usuario":"DarioJ",
-            "password":"123",
-            "perfil":"gestion",
-            "estado":"ACTIVO"
-          })
+          login(user)
+          localStorage.setItem('user', JSON.stringify(user))
           setLoading(false);
         } else {
           setcolor(false)
           setLoading(false);
           seterror('error')
         }
-      } catch (error) {
+      }).catch(function (error) {
         seterror(error.message);
         setLoading(false);
-      }
+      });
+      
+    }else{
+      seterror(error.message);
+      setLoading(false);
     }
   }
-  
   return (
     <div
       style={{
@@ -80,11 +82,11 @@ function Login() {
         <div style={{position: 'relative'}} className="flex flex-col gap-y-6">
           <div className="w-full border border-second rounded-lg flex justify-between gap-x-4 items-center px-4 py-2">
             <FontAwesomeIcon icon="fa-solid fa-user" />
-            <input className="w-full h-8 outline-none" type="text" placeholder="Nombre de usuario" name="username" onChange={handleuser} />
+            <input className="w-full h-8 outline-none" value={user.username} type="text" placeholder="Correo de usuario" name="username" onChange={handleuser} />
           </div>
           <div className="w-full border border-second rounded-lg flex justify-between gap-x-4 items-center px-4 py-2">
             <FontAwesomeIcon icon="fa-solid fa-lock" />
-            <input className="w-full h-8 outline-none" type={typeInput} placeholder="Contraseña" name="password" onChange={handleuser} />
+            <input className="w-full h-8 outline-none" value={user.password} type={typeInput} placeholder="Contraseña" name="password" onChange={handleuser} />
             <div className="w-4 h-4 cursor-pointer" onClick={() => { setShowPass(!showPass); setTypeInput(showPass ? 'password' : 'text') }}>
               {showPass ?
                 <FontAwesomeIcon icon="fa-solid fa-eye-slash" />

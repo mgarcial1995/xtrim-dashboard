@@ -51,14 +51,16 @@ function TableFilter(props) {
     }
     const gridHeader = () => {
         let grid = []
+        console.log({headerTitle})
         for (let i = 0; i < headerTitle.length; i++) {
             const element = headerTitle[i];
             if(element.label === "email"){
-                grid.push("1.5fr")
+                grid.push("15rem")
             }else{
-                grid.push("1fr")
+                grid.push("8rem")
             }
         }
+        console.log(grid.join(" "))
         return String(grid.join(" "))
     }
     const inputTypeValue = (item, value, name, index, extra) => {
@@ -89,9 +91,9 @@ function TableFilter(props) {
             </div>
             <div className="w-full">
                 <div style={{
-                    gridTemplateColumns: `repeat(${headerTitle.length}, auto)`,
+                    gridTemplateColumns: gridHeader(),
                 }} 
-                className={`grid grid-flow-col mt-8`}
+                className={`grid mt-8`}
                 >
                     {
                         headerTitle ?
@@ -117,7 +119,10 @@ function TableFilter(props) {
                                                     {
                                                         hear.id === "confirmacion" ?
                                                             <div onClick={()=>openModalConfirm(items, indexItem)} className='bg-gradient-to-l from-first to-[#4A3CDB] text-white font-semibold px-4 py-1 rounded-full cursor-pointer'
-                                                            >Confirmar</div> 
+                                                            >
+                                                            {/* <FontAwesomeIcon icon="fa-regular fa-circle-check" /> */}
+                                                            Confirmar
+                                                            </div> 
                                                         :
                                                             <p className='word-brake'>{items[hear.id]}</p>
                                                     }

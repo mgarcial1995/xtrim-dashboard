@@ -17,7 +17,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import {
   faCircleUser, faEnvelopeOpenText, faGear, faRightFromBracket, faTable, faRightLong,
   faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash, faTrash, faPenToSquare, faCaretRight,
-  faCheck, faXmark
+  faCheck, faXmark, faCircleCheck
 } from '@fortawesome/free-solid-svg-icons'
 
 import SideBar from "./Components/SideBar";
@@ -25,7 +25,7 @@ import Asesores from "./Views/Asesores";
 
 library.add(fab, faCircleUser, faEnvelopeOpenText, faGear, faRightFromBracket, faTable, faRightLong,
   faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash, faTrash, faPenToSquare, faCaretRight,
-  faCheck, faXmark)
+  faCheck, faXmark, faCircleCheck)
 function App() {
   const tables = [
     { path: "/table/gestion", name: "Gestión", id:"gestion", icon: 'fa-solid fa-table', isActive: false },
@@ -56,17 +56,18 @@ function App() {
   const [accessOther, setAccessOthers] = useState(routes);
 
   useEffect(() => {
-    console.log({auth})
-    if(auth && auth !== undefined && auth.perfil === "administrador"){
+    const userlog = JSON.parse(localStorage.getItem("user"));
+    console.log('userlog', userlog);
+    if(userlog && userlog !== undefined && userlog.perfil === "administrador"){
       setAccessTables(tables)
       setAccessOthers(routes)
-    } else if(auth && auth !== undefined && auth.perfil === "gestion") {
+    } else if(userlog && userlog !== undefined && userlog.perfil === "gestion") {
       setAccessTables(tables.filter(el => el.id === "gestion"))
       setAccessOthers(routes.filter(el => el.id === "emails"))
-    } else if(auth && auth !== undefined && auth.perfil === "retencion"){
+    } else if(userlog && userlog !== undefined && userlog.perfil === "retencion"){
       setAccessTables(tables.filter(el => el.id === "retencion"))
       setAccessOthers(routes.filter(el => el.id === "emails"))
-    } else if(auth && auth !== undefined && auth.perfil === "ventas"){
+    } else if(userlog && userlog !== undefined && userlog.perfil === "ventas"){
       setAccessTables(tables.filter(el => el.id === "ventas"))
       setAccessOthers(routes.filter(el => el.id === "emails"))
     }else{
@@ -133,6 +134,7 @@ function App() {
 
   const logout = () => {
     removeDatosUsuario()
+    localStorage.setItem('user', null)
     setAuth(null);
     navigate('/login')
   };

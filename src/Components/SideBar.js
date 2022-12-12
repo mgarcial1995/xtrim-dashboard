@@ -4,6 +4,7 @@ import xlogo from '../Assests/xlogo.png'
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './sidebar.css'
 
 import useAuth from "../hook/useAuth";
 
@@ -21,7 +22,7 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
                 minWidth: expandNav ? '250px' : '70px',
                 transition: 'all 0.5s ease',
             }}
-            className={`${expandNav ? 'w-80' : 'auto'} max-w-xs bg-first h-screen flex flex-col justify-between transition-transform bg-gradient-to-t from-third to-first`}>
+            className={`${expandNav ? 'w-80' : 'auto'} max-w-xs bg-first h-screen flex flex-col justify-between transition-transform bg-gradient-to-t from-third to-first h-screen overflow-y-auto`}>
             <div>
                 <Link to="/" className="my-6 flex justify-center">
                     <img src={expandNav ? logo : xlogo} atl="Logo Xtrim" />
@@ -49,9 +50,9 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
                                 <FontAwesomeIcon className={`${expandNav ? '' : 'text-2xl'}`} icon={rout.icon} /> {expandNav ? rout.name : ''}
                             </Link>
                         })}
-                        <div onClick={() => setExpandNav(!expandNav)} className={`flex items-center justify-start w-full py-4 text-lg font-semibold gap-x-4 px-6 hover:bg-hover cursor-pointer text-white`}>
+                        {/* <div onClick={() => setExpandNav(!expandNav)} className={`flex items-center justify-start w-full py-4 text-lg font-semibold gap-x-4 px-6 hover:bg-hover cursor-pointer text-white`}>
                             <FontAwesomeIcon className={`${expandNav ? '' : 'text-2xl'}`} icon={`${expandNav ? 'fa-solid fa-left-long' : 'fa-solid fa-right-long'}`} /> {expandNav ? 'Contraer' : ''}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

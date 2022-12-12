@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import Modal from '../Components/Modal'
 import ModalForm from '../Components/ModalForm'
 import InputText from '../Components/InputText'
+import axios from 'axios';
 function Users() {
   const [showModal, setShowModal] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [loader, setLoader] = useState(true);
   const [showModalCreate, setShowModalCreate] = useState(false);
   const [contentModal, setContentModal] = useState({
     title: "",
@@ -46,19 +49,33 @@ function Users() {
     {label:"Administrador", value: 1},
     {label:"Agente", value: 2},
   ]
-  const users = [
-    {
-      name:"Giovanni Martin Garcia Lagos",
-      email: "martin@martin.com",
-      rol: "Administrador",
-    },
-    {
-      name:"Sergio Santana",
-      email: "sergio@aaaa.com",
-      rol: "Agente",
-    },
+  useEffect(() => {
+    const config = {
+      method: 'get',
+      url: `https://incoming.xfiv.chat/dashboard/api/v1/usuarios`
+    };
+    axios(config)
+    .then(function (response) {
+      console.log(response.data)
+      setUsers(response.data.usuarios)
+      setLoader(false)
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }, [])
+  // const users = [
+  //   {
+  //     name:"Giovanni Martin Garcia Lagos",
+  //     email: "martin@martin.com",
+  //     rol: "Administrador",
+  //   },
+  //   {
+  //     name:"Sergio Santana",
+  //     email: "sergio@aaaa.com",
+  //     rol: "Agente",
+  //   },
 
-  ]
+  // ]
   const accept = () => {
     console.log("accept")
     setShowModal(false)
@@ -73,7 +90,7 @@ function Users() {
     setShowModalCreate(false)
   }
   return (
-    <div className="relative w-full p-8">
+    <div className="relative w-full p-8 overflow-hidden h-screen overflow-y-auto">
       {showModal && <Modal content={contentModal} btnAccept={btcAcept} btnCancel={btcCancel} accept={accept} cancel={cancel} />}
         {showModalCreate && 
         <ModalForm title="Agregar elemento" save={edit} cancel={cancel} >
@@ -90,19 +107,21 @@ function Users() {
         </ModalForm>
         }
       <h1 className="font-bold capitalize text-3xl text-first">Usuarios</h1>
-      <div className="w-full mt-10 flex rounded-lg gap-x-10 gap-y-8 flex-wrap">
+      {
+        loader ? <div className="w-full h-96 flex justify-center items-center">Cargando...</div> :
+        <div className="w-full mt-10 flex rounded-lg gap-x-10 gap-y-8 flex-wrap">
         {
           users.map((user,i)=>{
             return (
             <div key={i} className="max-w-md w-full flex justify-between bg-white shadow-md shadow-slate-400 ">
               <div className="flex p-4 gap-x-6">
                 <div className="w-20  flex justify-center items-center text-white font-semibold text-4xl h-20 bg-gradient-to-b from-first to-third rounded-full ">
-                  <p>{generatePhoto(user.name)}</p>
+                  <p>{generatePhoto(user.nombre)}</p>
                 </div>
                 <div>
-                  <p>{user.name}</p>
+                  <p>{user.nombre}</p>
                   <p>{user.email}</p>
-                  <p>{user.rol}</p>
+                  <p>{user.perfil}</p>
                 </div>
               </div>
               <div className="h-full w-14 bg-first">
@@ -117,8 +136,9 @@ function Users() {
             )
           })
         }
-        
       </div>
+      }
+      
     </div>
   );
 }
