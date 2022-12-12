@@ -28,7 +28,7 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
                     <img src={expandNav ? logo : xlogo} atl="Logo Xtrim" />
                 </Link>
                 <div>
-                    <h2 className={`text-textnavbar font-bold text-lg mt-8 ${expandNav ? 'ml-6' : 'text-center'}`}>Tablas</h2>
+                    <h2 className={`text-textnavbar font-bold  mt-8 ${expandNav ? 'ml-6' : 'text-center'}`}>Tablas</h2>
                     <div className="flex flex-col text-white">
                         {tables.map((tables, i) => {
                             return <Link key={i} onClick={() => setTables(i)} to={tables.path}
@@ -42,7 +42,7 @@ function SideBar({ routes, expandNav, setExpandNav, tables, setTables, setRoutes
                     </div>
                 </div>
                 <div className="mt-10">
-                    <h2 className={`text-textnavbar font-bold text-lg ${expandNav ? 'ml-6' : 'text-center'}`}>Cuenta</h2>
+                    <h2 className={`text-textnavbar font-bold  ${expandNav ? 'ml-6' : 'text-center'}`}>Administrar Usuarios</h2>
                     <div className="flex flex-col text-white">
                         {routes.map((rout, i) => {
                             return <Link key={i} onClick={() => setRoutes(i)} to={rout.path}

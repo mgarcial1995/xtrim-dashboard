@@ -8,6 +8,7 @@ import ModalForm from '../Components/ModalForm'
 import ModalConfirm from '../Components/ModalConfirm'
 import InputText from '../Components/InputText'
 import TableFilter from '../Components/TableFilter'
+import loaderimg from '../Assests/loader.svg'
 import axios from 'axios';
 
 // SI ES DESACTIVADO YA NO SE PUEDE EDITAR
@@ -92,15 +93,12 @@ function Tables() {
     type: 'white'
   }
   const accept = () => {
-    console.log("accept")
     setShowModal(false)
   }
   const save = () => {
-    console.log("save")
     setShowModalCreate(false)
   }
   const cancel = () => {
-    console.log("cancel")
     setShowModal(false)
     setShowModalCreate(false)
   }
@@ -127,7 +125,6 @@ function Tables() {
     };
     axios(config)
     .then(function (response) {
-      console.log(response.data)
       const resp = response.data[nameTable];
       if(resp.length === 0){
         setLoaderTable(false);
@@ -150,7 +147,6 @@ function Tables() {
         listHeaders.splice(listHeaders.length, 1, listHeaders[index]);
         listHeaders.splice(index, 1, valueLast);
         setHeaders(listHeaders)
-        console.log({resp})
         //CUERPO DE LA TABLA
         const dataOutConfirm = resp.filter((item) => item.confirmacion === "" && item.observacion === "");
         setDataTable(dataOutConfirm)
@@ -162,30 +158,23 @@ function Tables() {
     });
   }
   const changeItemTable = (index, e) => {
-    console.log(e.target.name, e.target.value)
     let data = [...dataTable]
     data[index][e.target.name].value = e.target.value
-    console.log("data",data)
     setDataTable(data)
   }
   const changeItemEdit = (index, item, value) => {
-    console.log(index, item, value)
     let data = [...dataTable]
     data[index][item].isEdit = value
-    console.log("data",data)
     setDataTable(data)
   }
   const updateItem = (item) => {
-    console.log(item)
     const config = {
       method: 'put',
       url: `https://incoming.xfiv.chat/dashboard/api/v1/${nameTable}/${item._id}`,
       data: item
     };
-    console.log({config})
     axios(config)
     .then(function (response) {
-      console.log(response.data)
       sendNotificationUser(item)
       getDataTables()
       setModalConfirm(false)
@@ -245,7 +234,9 @@ function Tables() {
       }
 
       {loaderTable ? 
-        <div>loading...</div>
+        <div className="w-full h-full flex justify-center items-center">
+          <img className='w-20 h-auto' alt="loader" src={loaderimg} />
+        </div>
       : 
       <div className="w-full h-full p-8">
         {validateTable ? 

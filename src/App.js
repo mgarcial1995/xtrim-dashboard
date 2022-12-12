@@ -17,7 +17,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import {
   faCircleUser, faEnvelopeOpenText, faGear, faRightFromBracket, faTable, faRightLong,
   faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash, faTrash, faPenToSquare, faCaretRight,
-  faCheck, faXmark, faCircleCheck
+  faCheck, faXmark, faCircleCheck, faListCheck, faUsers
 } from '@fortawesome/free-solid-svg-icons'
 
 import SideBar from "./Components/SideBar";
@@ -25,7 +25,7 @@ import Asesores from "./Views/Asesores";
 
 library.add(fab, faCircleUser, faEnvelopeOpenText, faGear, faRightFromBracket, faTable, faRightLong,
   faLeftLong, faMagnifyingGlass, faPlus, faLock, faUser, faEye, faEyeSlash, faTrash, faPenToSquare, faCaretRight,
-  faCheck, faXmark, faCircleCheck)
+  faCheck, faXmark, faCircleCheck, faListCheck, faUsers)
 function App() {
   const tables = [
     { path: "/table/gestion", name: "Gestión", id:"gestion", icon: 'fa-solid fa-table', isActive: false },
@@ -34,7 +34,7 @@ function App() {
   ]
   const routes = [
     // { path: "/tables", name: "Tabla", icon:'fa-solid fa-table', isActive: false },
-    { path: "/users", name: "Usuarios", id:"users", icon: 'fa-solid fa-circle-user', isActive: false },
+    { path: "/users", name: "Usuarios", id:"users", icon: 'fa-solid fa-users', isActive: false },
     { path: "/email", name: "Enviar correos", id:"emails", icon: 'fa-solid fa-envelope-open-text', isActive: false },
     // { path: "/email", name: "Edificios", icon: 'fa-solid fa-envelope-open-text', isActive: false },
     // { path: "/settings", name: "Configuración", icon: 'fa-solid fa-gear', isActive: false },
@@ -57,7 +57,6 @@ function App() {
 
   useEffect(() => {
     const userlog = JSON.parse(localStorage.getItem("user"));
-    console.log('userlog', userlog);
     if(userlog && userlog !== undefined && userlog.perfil === "administrador"){
       setAccessTables(tables)
       setAccessOthers(routes)
@@ -128,7 +127,6 @@ function App() {
   const login = (data) => {
     setDatosUsuario(data)
     setAuth(data) 
-    console.log('data',data)
     navigate(`/table/${data.perfil === "administrador" ? accessTables[0].id : data.perfil}`)
   };
 

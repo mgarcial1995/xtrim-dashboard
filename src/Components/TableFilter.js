@@ -47,20 +47,17 @@ function TableFilter(props) {
         setRowh(optionValue)
     }
     const selectState = (index, item, value, event) => {
-        console.log(event.target.value);
     }
     const gridHeader = () => {
         let grid = []
-        console.log({headerTitle})
         for (let i = 0; i < headerTitle.length; i++) {
             const element = headerTitle[i];
             if(element.label === "email"){
-                grid.push("15rem")
+                grid.push("17rem")
             }else{
-                grid.push("8rem")
+                grid.push("9rem")
             }
         }
-        console.log(grid.join(" "))
         return String(grid.join(" "))
     }
     const inputTypeValue = (item, value, name, index, extra) => {
@@ -98,13 +95,13 @@ function TableFilter(props) {
                     {
                         headerTitle ?
                             headerTitle.map((items, index) => (
-                                <div key={index} className={`font-semibold capitalize text-lg py-4 text-sm ${items.id === 'accion' ?' w-[2rem]': 'w-[10rem]'}`} >
+                                <div key={index} className={`text-[#222D44] font-semibold capitalize text-lg py-4 text-sm ${items.id === 'accion' ?' w-[2rem]': 'w-[10rem]'}`} >
                                         {items.label}
                                 </div>
                             )) : ''
                     }
                 </div>
-                <hr/>
+                <hr className='w-full'/>
                 <div className="w-full">
                     {
                         data ?
@@ -118,13 +115,13 @@ function TableFilter(props) {
                                                 <div key={indexheader} className="flex items-center text-sm w-[10rem]">
                                                     {
                                                         hear.id === "confirmacion" ?
-                                                            <div onClick={()=>openModalConfirm(items, indexItem)} className='bg-gradient-to-l from-first to-[#4A3CDB] text-white font-semibold px-4 py-1 rounded-full cursor-pointer'
+                                                            <div onClick={()=>openModalConfirm(items, indexItem)} className='text-white text-sm bg-gradient-to-l from-first to-[#4A3CDB] font-semibold px-4 py-1 rounded-full cursor-pointer'
                                                             >
-                                                            {/* <FontAwesomeIcon icon="fa-regular fa-circle-check" /> */}
-                                                            Confirmar
+                                                            <FontAwesomeIcon icon="fa-solid fa-list-check" />
+                                                            {/* Confirmar */}
                                                             </div> 
                                                         :
-                                                            <p className='word-brake'>{items[hear.id]}</p>
+                                                            <p className='word-brake text-[#6A7180]'>{items[hear.id]}</p>
                                                     }
                                                     {/* {
                                                         hear.id === "confirmacion" || hear.id === "observacion" ?
@@ -156,7 +153,7 @@ function TableFilter(props) {
                     }
                 </div>
             </div>
-            <div className="d-flex justify-content-end m-3">
+            {/* <div className="d-flex justify-content-end m-3">
                 <select name="" id=""
                     style={{
                         borderWidth: 0,
@@ -177,7 +174,7 @@ function TableFilter(props) {
                         outlineWidth: 'none'
                     }}
                     onClick={prevPage}> 
-                    {/* <FontAwesomeIcon icon="fa-solid fa-caret-left" />  */}
+                    <FontAwesomeIcon icon="fa-solid fa-caret-left" /> 
                     </button>
                 &nbsp;
                 <button className="btn"
@@ -186,9 +183,9 @@ function TableFilter(props) {
                         outlineWidth: 'none'
                     }}
                     onClick={nextPage}> 
-                    {/* <FontAwesomeIcon icon="fa-solid fa-caret-right" />  */}
+                    <FontAwesomeIcon icon="fa-solid fa-caret-right" /> 
                     </button>
-            </div>
+            </div> */}
         </div>
     );
 }
